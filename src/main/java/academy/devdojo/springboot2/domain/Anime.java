@@ -1,15 +1,23 @@
 package academy.devdojo.springboot2.domain;
 
-import javax.swing.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-public class Anime {
+import javax.persistence.*;
+import java.io.Serializable;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Entity
+public class Anime implements Serializable {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    public Long id;
+
 
     public String name;
 
-    public Anime() {
-    }
-
-    public Anime(String name) {
-        this.name = name;
-    }
 }
