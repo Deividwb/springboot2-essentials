@@ -10,6 +10,7 @@ import java.io.Serializable;
 
 //Tambem nomeado como DTO
 @Data
+
 public class AnimePostRequestBody{
 
     private String name;
