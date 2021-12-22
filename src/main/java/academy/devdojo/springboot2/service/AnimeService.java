@@ -1,10 +1,12 @@
 package academy.devdojo.springboot2.service;
 
 import academy.devdojo.springboot2.domain.Anime;
+import academy.devdojo.springboot2.mapper.AnimeMapper;
 import academy.devdojo.springboot2.repository.AnimeRepository;
 import academy.devdojo.springboot2.requests.AnimePostRequestBody;
 import academy.devdojo.springboot2.requests.AnimePutRequestBody;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,10 +23,10 @@ public class AnimeService {
     AnimeRepository animeRepository;
 
     public Anime save(AnimePostRequestBody animePostRequestBody){
-        return animeRepository.save(Anime.builder().name(animePostRequestBody.getName()).build());
+        return animeRepository.save(AnimeMapper.INSTANCE.toAnime(animePostRequestBody));
     }
 
-    public List<Anime> list(){
+    public List<Anime> listAll(){
         return animeRepository.findAll();
     }
 
@@ -39,10 +41,8 @@ public class AnimeService {
 
     public void replace(AnimePutRequestBody animePutRequestBody){
         Anime savedAnime = findByIdOrThrowBadRequestExeption(animePutRequestBody.getId());
-        Anime anime = Anime.builder()
-                .id(savedAnime.getId())
-                .name(animePutRequestBody.getName())
-                .build();
+        Anime anime = AnimeMapper.INSTANCE.toAnime(animePutRequestBody);
+        anime.setId(savedAnime.getId());
         animeRepository.save(anime);
 
     }

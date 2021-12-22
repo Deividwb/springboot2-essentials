@@ -19,7 +19,7 @@ public class Anime implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long id;
 
-    @Column
+
     public String name;
 
 }
